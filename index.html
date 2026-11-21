@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Laptop Finder</title>
+  <script src="src/js/theme-early.js"></script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="dist/output.css" />
+  <script type="module" src="src/js/home.js"></script>
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-20 border-b border-app-border bg-app-surface/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <a href="index.html" class="text-lg font-extrabold tracking-tight">Student <span class="text-app-accent">Laptop</span> Finder</a>
+
+      <div class="flex items-center gap-2 md:order-3">
+        <button id="theme-toggle" type="button" class="btn-ghost" aria-pressed="false" title="Switch between Battery Saver and Performance mode">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+          <span id="theme-label" class="hidden sm:inline">Battery Saver</span>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+        <button id="nav-toggle" type="button" class="btn-ghost md:hidden" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="nav-menu" class="hidden w-full flex-col gap-1 md:order-2 md:flex md:w-auto md:flex-row" aria-label="Main navigation">
+          <a href="index.html" aria-current="page" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent bg-app-accent text-app-accent-text">Home</a>
+          <a href="laptops.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Laptops</a>
+          <a href="favorites.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Favorites <span id="fav-count" class="ml-1 inline-flex min-w-5 items-center justify-center rounded-full bg-app-border px-1.5 text-xs font-bold text-app-text">0</span></a>
+          <a href="compare.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Compare</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+    <section class="grid items-center gap-8 lg:grid-cols-2">
+      <div>
+        <p class="mb-3 inline-block rounded-full border border-app-border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-app-accent">Made for students</p>
+        <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">Find the right laptop for your classes and your budget.</h1>
+        <p class="mt-4 max-w-xl text-lg text-app-muted">Browse laptops, search and filter by what matters to you, save your favorites and compare them side by side. Switch between Performance and Battery Saver mode to match your mood.</p>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <a href="laptops.html" class="btn-action px-6 py-3">Browse laptops</a>
+          <a href="compare.html" class="btn-ghost px-6 py-3">Compare favorites</a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4" aria-label="Live statistics">
+        <div class="laptop-card p-5"><p class="text-sm text-app-muted">Laptops</p><p id="stat-count" class="mt-1 text-3xl font-extrabold text-app-accent">-</p></div>
+        <div class="laptop-card p-5"><p class="text-sm text-app-muted">Lowest price</p><p id="stat-lowest" class="mt-1 text-3xl font-extrabold text-app-accent">-</p></div>
+        <div class="laptop-card p-5"><p class="text-sm text-app-muted">Saved favorites</p><p id="stat-favorites" class="mt-1 text-3xl font-extrabold text-app-accent">0</p></div>
+        <div class="laptop-card p-5"><p class="text-sm text-app-muted">Best battery</p><p id="stat-battery" class="mt-1 text-3xl font-extrabold text-app-accent">-</p></div>
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="explore-heading">
+      <h2 id="explore-heading" class="mb-4 text-2xl font-bold">Explore the app</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a href="laptops.html" class="laptop-card p-5"><h3 class="font-bold">Catalogue</h3><p class="mt-1 text-sm text-app-muted">Search, filter and sort every laptop.</p></a>
+        <a href="laptops.html" class="laptop-card p-5"><h3 class="font-bold">Laptop details</h3><p class="mt-1 text-sm text-app-muted">Open any laptop for its full specifications.</p></a>
+        <a href="favorites.html" class="laptop-card p-5"><h3 class="font-bold">Favorites</h3><p class="mt-1 text-sm text-app-muted">Your saved laptops with total and average price.</p></a>
+        <a href="compare.html" class="laptop-card p-5"><h3 class="font-bold">Compare</h3><p class="mt-1 text-sm text-app-muted">Put two to four favorites side by side.</p></a>
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="mb-1 text-2xl font-bold">Longest battery life</h2>
+      <p class="mb-4 text-app-muted">Three laptops that will outlast your longest day on campus.</p>
+      <div id="featured-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+    </section>
+  </main>
+
+  <footer class="mt-16 border-t border-app-border bg-app-surface">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-app-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>&copy; 2026 Student Laptop Finder</p>
+    </div>
+  </footer>
+</body>
+</html>
