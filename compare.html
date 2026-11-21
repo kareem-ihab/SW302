@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compare - Student Laptop Finder</title>
+  <script src="src/js/theme-early.js"></script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="dist/output.css" />
+  <script type="module" src="src/js/compare-page.js"></script>
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-20 border-b border-app-border bg-app-surface/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <a href="index.html" class="text-lg font-extrabold tracking-tight">Student <span class="text-app-accent">Laptop</span> Finder</a>
+
+      <div class="flex items-center gap-2 md:order-3">
+        <button id="theme-toggle" type="button" class="btn-ghost" aria-pressed="false" title="Switch between Battery Saver and Performance mode">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+          <span id="theme-label" class="hidden sm:inline">Battery Saver</span>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+        <button id="nav-toggle" type="button" class="btn-ghost md:hidden" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="nav-menu" class="hidden w-full flex-col gap-1 md:order-2 md:flex md:w-auto md:flex-row" aria-label="Main navigation">
+          <a href="index.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Home</a>
+          <a href="laptops.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Laptops</a>
+          <a href="favorites.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Favorites <span id="fav-count" class="ml-1 inline-flex min-w-5 items-center justify-center rounded-full bg-app-border px-1.5 text-xs font-bold text-app-text">0</span></a>
+          <a href="compare.html" aria-current="page" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent bg-app-accent text-app-accent-text">Compare</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+    <h1 class="text-3xl font-extrabold sm:text-4xl">Compare laptops</h1>
+    <p class="mt-2 text-app-muted">Choose two to four of your favorites. The best value in each row is highlighted.</p>
+
+    <section id="picker-section" class="mt-6" aria-labelledby="picker-heading">
+      <h2 id="picker-heading" class="mb-3 text-lg font-bold">Your favorites</h2>
+      <div id="picker" class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"></div>
+      <p id="picker-message" class="mt-3 min-h-6 text-sm font-semibold text-app-accent" role="alert"></p>
+    </section>
+
+    <div id="compare-table" class="mt-4 overflow-x-auto rounded-2xl border border-app-border bg-app-surface"></div>
+  </main>
+
+  <footer class="mt-16 border-t border-app-border bg-app-surface">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-app-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>&copy; 2026 Student Laptop Finder</p>
+    </div>
+  </footer>
+</body>
+</html>
