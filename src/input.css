@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* Official plugin: styles the search box, selects and inputs (visible on the filter controls) */
+@plugin "@tailwindcss/forms";
+
+/* Tailwind scans these files for class names (the pages and the JS that builds markup) */
+@source "../index.html";
+@source "../laptops.html";
+@source "../details.html";
+@source "../favorites.html";
+@source "../compare.html";
+@source "./js";
+
+/* ---------- Custom themes: raw palettes for both modes ---------- */
+@theme {
+  /* Performance Mode: dark background + bold orange accent */
+  --color-perf-bg: #0f1115;
+  --color-perf-surface: #1a1d24;
+  --color-perf-border: #2c313c;
+  --color-perf-text: #f3f4f6;
+  --color-perf-muted: #a1a8b5;
+  --color-perf-accent: #ff7a1a;
+  --color-perf-accent-text: #1a0f05;
+
+  /* Battery Saver Mode: light background + green accents */
+  --color-saver-bg: #f3f8f4;
+  --color-saver-surface: #ffffff;
+  --color-saver-border: #cfe3d4;
+  --color-saver-text: #14301f;
+  --color-saver-muted: #4a6655;
+  --color-saver-accent: #1f9d55;
+  --color-saver-accent-text: #ffffff;
+}
+
+/* Semantic tokens: these point at whichever theme is active, so one class works in both modes */
+@theme inline {
+  --color-app-bg: var(--app-bg);
+  --color-app-surface: var(--app-surface);
+  --color-app-border: var(--app-border);
+  --color-app-text: var(--app-text);
+  --color-app-muted: var(--app-muted);
+  --color-app-accent: var(--app-accent);
+  --color-app-accent-text: var(--app-accent-text);
+}
+
+/* Theme switching: ui.js sets data-theme on <html>. Plain CSS variables have no Tailwind utility. */
+@layer base {
+  :root,
+  :root[data-theme="saver"] {
+    --app-bg: var(--color-saver-bg);
+    --app-surface: var(--color-saver-surface);
+    --app-border: var(--color-saver-border);
+    --app-text: var(--color-saver-text);
+    --app-muted: var(--color-saver-muted);
+    --app-accent: var(--color-saver-accent);
+    --app-accent-text: var(--color-saver-accent-text);
+    color-scheme: light;
+  }
+
+  :root[data-theme="performance"] {
+    --app-bg: var(--color-perf-bg);
+    --app-surface: var(--color-perf-surface);
+    --app-border: var(--color-perf-border);
+    --app-text: var(--color-perf-text);
+    --app-muted: var(--color-perf-muted);
+    --app-accent: var(--color-perf-accent);
+    --app-accent-text: var(--color-perf-accent-text);
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-app-bg text-app-text antialiased;
+  }
+
+  /* Form controls follow the theme (the forms plugin gives them their base look).
+     The ":root" prefix raises specificity so these colours beat the plugin's white background. */
+  :root input[type="search"],
+  :root input[type="number"],
+  :root input[type="text"],
+  :root select {
+    @apply bg-app-surface text-app-text border-app-border rounded-lg;
+  }
+
+  :root input[type="search"]::placeholder {
+    @apply text-app-muted;
+  }
+
+  :root input[type="search"]:focus,
+  :root input[type="number"]:focus,
+  :root select:focus {
+    @apply border-app-accent ring-2 ring-app-accent/40 outline-none;
+  }
+
+  input[type="range"] {
+    accent-color: var(--app-accent);
+  }
+}
+
+/* ---------- Reusable component classes ---------- */
+@layer components {
+  /* Used by laptop cards (catalogue, favorites), skeleton cards, stat boxes and the compare/spec tables */
+  .laptop-card {
+    @apply flex flex-col overflow-hidden rounded-2xl border border-app-border bg-app-surface shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:shadow-lg focus-within:ring-2 focus-within:ring-app-accent;
+  }
+
+  /* Used by every main action button: favorite, compare, remove, clear, nav links */
+  .btn-action {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-app-accent px-4 py-2 text-sm font-semibold text-app-accent-text transition duration-200 hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-2 focus-visible:ring-offset-app-bg disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Quieter button variant for secondary actions */
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-app-border bg-transparent px-4 py-2 text-sm font-semibold text-app-text transition duration-200 hover:border-app-accent hover:text-app-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent;
+  }
+
+  /* Pill used for spec badges and categories */
+  .spec-chip {
+    @apply inline-flex items-center rounded-full border border-app-border px-2.5 py-0.5 text-xs font-medium text-app-muted;
+  }
+}
