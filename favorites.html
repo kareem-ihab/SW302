@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Favorites - Student Laptop Finder</title>
+  <script src="src/js/theme-early.js"></script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="dist/output.css" />
+  <script type="module" src="src/js/favorites.js"></script>
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-20 border-b border-app-border bg-app-surface/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <a href="index.html" class="text-lg font-extrabold tracking-tight">Student <span class="text-app-accent">Laptop</span> Finder</a>
+
+      <div class="flex items-center gap-2 md:order-3">
+        <button id="theme-toggle" type="button" class="btn-ghost" aria-pressed="false" title="Switch between Battery Saver and Performance mode">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+          <span id="theme-label" class="hidden sm:inline">Battery Saver</span>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+        <button id="nav-toggle" type="button" class="btn-ghost md:hidden" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="nav-menu" class="hidden w-full flex-col gap-1 md:order-2 md:flex md:w-auto md:flex-row" aria-label="Main navigation">
+          <a href="index.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Home</a>
+          <a href="laptops.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Laptops</a>
+          <a href="favorites.html" aria-current="page" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent bg-app-accent text-app-accent-text">Favorites <span id="fav-count" class="ml-1 inline-flex min-w-5 items-center justify-center rounded-full bg-app-border px-1.5 text-xs font-bold text-app-text">0</span></a>
+          <a href="compare.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Compare</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-extrabold sm:text-4xl">Your favorites</h1>
+        <p class="mt-2 text-app-muted">Saved on this device, so they are still here after a reload.</p>
+      </div>
+      <div class="flex gap-2">
+        <a id="go-compare" href="compare.html" class="btn-action hidden">Compare favorites</a>
+        <button id="clear-favorites" type="button" class="btn-ghost" disabled>Clear all</button>
+      </div>
+    </div>
+
+    <section id="favorites-summary" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3" aria-label="Favorites summary">
+      <div class="laptop-card p-5"><p class="text-sm text-app-muted">Saved laptops</p><p id="fav-total-count" class="mt-1 text-3xl font-extrabold text-app-accent">0</p></div>
+      <div class="laptop-card p-5"><p class="text-sm text-app-muted">Total price</p><p id="fav-total-price" class="mt-1 text-3xl font-extrabold text-app-accent">$0</p></div>
+      <div class="laptop-card p-5"><p class="text-sm text-app-muted">Average price</p><p id="fav-average-price" class="mt-1 text-3xl font-extrabold text-app-accent">$0</p></div>
+    </section>
+
+    <div id="favorites-grid" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+  </main>
+
+  <footer class="mt-16 border-t border-app-border bg-app-surface">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-app-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>&copy; 2026 Student Laptop Finder</p>
+    </div>
+  </footer>
+</body>
+</html>
