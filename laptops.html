@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laptops - Student Laptop Finder</title>
+  <script src="src/js/theme-early.js"></script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="dist/output.css" />
+  <script type="module" src="src/js/catalogue.js"></script>
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-20 border-b border-app-border bg-app-surface/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <a href="index.html" class="text-lg font-extrabold tracking-tight">Student <span class="text-app-accent">Laptop</span> Finder</a>
+
+      <div class="flex items-center gap-2 md:order-3">
+        <button id="theme-toggle" type="button" class="btn-ghost" aria-pressed="false" title="Switch between Battery Saver and Performance mode">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+          <span id="theme-label" class="hidden sm:inline">Battery Saver</span>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+        <button id="nav-toggle" type="button" class="btn-ghost md:hidden" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="nav-menu" class="hidden w-full flex-col gap-1 md:order-2 md:flex md:w-auto md:flex-row" aria-label="Main navigation">
+          <a href="index.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Home</a>
+          <a href="laptops.html" aria-current="page" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent bg-app-accent text-app-accent-text">Laptops</a>
+          <a href="favorites.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Favorites <span id="fav-count" class="ml-1 inline-flex min-w-5 items-center justify-center rounded-full bg-app-border px-1.5 text-xs font-bold text-app-text">0</span></a>
+          <a href="compare.html" class="rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-app-accent text-app-text hover:text-app-accent">Compare</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+    <h1 class="text-3xl font-extrabold sm:text-4xl">Laptop catalogue</h1>
+    <p class="mt-2 text-app-muted">Search by name or brand, then narrow the list with the filters.</p>
+
+    <form id="filters" class="mt-6 grid grid-cols-1 gap-4 rounded-2xl border border-app-border bg-app-surface p-4 sm:grid-cols-2 lg:grid-cols-6">
+      <div class="sm:col-span-2">
+        <label for="search" class="mb-1 block text-sm font-semibold">Search</label>
+        <input id="search" type="search" placeholder="Name or brand, e.g. Lenovo" autocomplete="off" class="w-full" />
+      </div>
+      <div>
+        <label for="category" class="mb-1 block text-sm font-semibold">Category</label>
+        <select id="category" class="w-full"><option value="all">All categories</option></select>
+      </div>
+      <div>
+        <label for="max-price" class="mb-1 block text-sm font-semibold">Max price: <span id="max-price-label" class="text-app-accent">-</span></label>
+        <input id="max-price" type="range" min="0" max="3000" step="50" value="3000" class="w-full" />
+      </div>
+      <div>
+        <label for="min-ram" class="mb-1 block text-sm font-semibold">Minimum RAM</label>
+        <select id="min-ram" class="w-full">
+          <option value="0">Any</option>
+          <option value="8">8 GB or more</option>
+          <option value="16">16 GB or more</option>
+          <option value="32">32 GB or more</option>
+          <option value="64">64 GB</option>
+        </select>
+      </div>
+      <div>
+        <label for="sort" class="mb-1 block text-sm font-semibold">Sort by</label>
+        <select id="sort" class="w-full">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="battery-desc">Battery: longest first</option>
+          <option value="battery-asc">Battery: shortest first</option>
+          <option value="weight-asc">Weight: lightest first</option>
+          <option value="weight-desc">Weight: heaviest first</option>
+        </select>
+      </div>
+    </form>
+
+    <div class="mt-4 flex items-center justify-between gap-3">
+      <p id="result-count" class="font-semibold" aria-live="polite">Loading laptops...</p>
+      <button id="reset-filters" type="button" class="btn-ghost">Reset filters</button>
+    </div>
+
+    <div id="laptop-grid" class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+  </main>
+
+  <footer class="mt-16 border-t border-app-border bg-app-surface">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-app-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>&copy; 2026 Student Laptop Finder</p>
+    </div>
+  </footer>
+</body>
+</html>
